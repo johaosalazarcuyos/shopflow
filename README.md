@@ -1,4 +1,4 @@
-# 🛒 ShopFlow — Backend de e-commerce con Spring Boot
+# ShopFlow — Backend de e-commerce con Spring Boot
 
 ![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F?logo=springboot&logoColor=white)
@@ -13,7 +13,7 @@ API REST de una tienda online pensada como un sistema real, no como un CRUD: man
 
 ---
 
-## ✨ Lo más interesante del proyecto
+## Lo más interesante del proyecto
 
 | Problema real | Cómo lo resuelve |
 |---|---|
@@ -26,11 +26,11 @@ API REST de una tienda online pensada como un sistema real, no como un CRUD: man
 | Cambia el precio de un producto después de una compra | Los ítems del pedido guardan una **copia** del nombre, SKU y precio al momento de la compra. |
 | Transiciones inválidas (entregar algo no pagado) | `OrderStatus` define las transiciones permitidas y cada cambio queda en un **historial de auditoría**. |
 
-## 🧱 Stack
+## Stack
 
 **Java 21** (records, `switch` con patrones, virtual threads) · **Spring Boot 4.1** · Spring Security (OAuth2 Resource Server / JWT) · Spring Data JPA + Hibernate 7 · **PostgreSQL 17** · **Flyway** · Caffeine Cache · Spring Mail · Micrometer + **Prometheus** · springdoc-openapi (Swagger) · JUnit 5 · **Testcontainers** · JaCoCo · Docker · GitHub Actions
 
-## 🗺️ Arquitectura
+## Arquitectura
 
 Monolito modular organizado **por funcionalidad** (no por capas técnicas): cada paquete contiene su entidad, repositorio, servicio, controlador y DTOs.
 
@@ -119,7 +119,7 @@ erDiagram
 
 El esquema se versiona con **Flyway** (`src/main/resources/db/migration`), e Hibernate solo lo **valida** (`ddl-auto=validate`), como en producción.
 
-## 🚀 Cómo ejecutarlo
+## Cómo ejecutarlo
 
 Requisitos: **Java 21** y **Docker**.
 
@@ -146,7 +146,7 @@ Usuario administrador por defecto: `admin@shopflow.dev` / `Admin12345` (cámbial
 
 En [`docs/requests.http`](docs/requests.http) hay un flujo completo listo para ejecutar desde IntelliJ o VS Code.
 
-## 🧪 Tests
+## Tests
 
 ```bash
 ./mvnw verify      # tests + reporte de cobertura en target/site/jacoco/index.html
@@ -158,7 +158,7 @@ En [`docs/requests.http`](docs/requests.http) hay un flujo completo listo para e
 - **Concurrencia**: 12 hilos compran a la vez 5 unidades → exactamente 5 pedidos, stock final 0.
 - **Unitarios** (sin Spring): máquina de estados (parametrizado), cálculo de totales, limitador de intentos con reloj controlable, política de envío, pasarela simulada.
 
-## 📚 Endpoints principales
+## Endpoints principales
 
 | Método | Ruta | Rol |
 |---|---|---|
@@ -185,12 +185,12 @@ Los errores siguen el estándar **RFC 9457 (Problem Details)** con un `code` est
 
 Tokens de pago de prueba: `tok_visa`, `tok_mastercard` (aprobados) · `tok_declined`, `tok_insufficient_funds` (rechazados → `402`).
 
-## 📈 Observabilidad
+## Observabilidad
 
 - `/actuator/health/liveness` y `/readiness` (listos para Kubernetes).
 - Métricas de negocio propias en Prometheus: `shopflow_orders_placed_total`, `shopflow_orders_cancelled_total`, `shopflow_payments_total{status=...}`.
 
-## 🗂️ Estructura
+## Estructura
 
 ```
 src/main/java/dev/harold/shopflow
@@ -206,7 +206,7 @@ src/main/java/dev/harold/shopflow
 └── common/        errores (ProblemDetail), auditoría JPA, utilidades
 ```
 
-## 🔭 Próximos pasos
+## Próximos pasos
 
 - Outbox transaccional para garantizar la entrega de notificaciones si la app se cae.
 - Integración real con una pasarela peruana (Culqi / Niubiz) vía webhooks firmados.
