@@ -1,0 +1,58 @@
+### Colección para el cliente HTTP de IntelliJ / extensión "REST Client" de VS Code
+@base = http://localhost:8080
+
+### 1. Registrarse
+# @name register
+POST {{base}}/api/auth/register
+Content-Type: application/json
+
+{"email": "ana@example.pe", "password": "Password123", "fullName": "Ana Torres"}
+
+> {% client.global.set("token", response.body.accessToken); %}
+
+### 2. Buscar productos (público)
+GET {{base}}/api/products?q=monitor&maxPrice=1500&sort=price,asc
+
+### 3. Agregar al carrito
+POST {{base}}/api/cart/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"productId": 8, "quantity": 1}
+
+### 4. Checkout
+# @name checkout
+POST {{base}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"shippingAddress": {"fullName": "Ana Torres", "line1": "Av. Arequipa 1234", "district": "Miraflores", "city": "Lima", "phone": "987654321"}}
+
+> {% client.global.set("orderId", response.body.id); %}
+
+### 5. Pagar (idempotente)
+POST {{base}}/api/orders/{{orderId}}/payments
+Authorization: Bearer {{token}}
+Idempotency-Key: 6f1c2a9e-0d4b-4c41-9a63-1f0d7c3e2b10
+Content-Type: application/json
+
+{"cardToken": "tok_visa"}
+
+### 6. Login de administrador
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"email": "admin@shopflow.dev", "password": "Admin12345"}
+
+> {% client.global.set("admin", response.body.accessToken); %}
+
+### 7. Marcar como enviado
+PATCH {{base}}/api/admin/orders/{{orderId}}/status
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{"status": "SHIPPED", "note": "Courier: Olva"}
+
+### 8. Reporte de ventas
+GET {{base}}/api/admin/reports/sales?from=2026-11-01&to=2026-11-30
+Authorization: Bearer {{admin}}
