@@ -193,7 +193,7 @@ Tokens de pago de prueba: `tok_visa`, `tok_mastercard` (aprobados) · `tok_decli
 ## Estructura
 
 ```
-src/main/java/dev/harold/shopflow
+src/main/java/io/github/johaosalazarcuyos/shopflow
 ├── auth/          JWT, refresh tokens con rotación, límite de intentos
 ├── catalog/       productos, categorías, búsqueda con Specifications, caché
 ├── cart/          carrito por usuario

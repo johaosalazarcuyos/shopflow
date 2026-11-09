@@ -8,7 +8,7 @@
 		<version>4.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>dev.harold</groupId>
+	<groupId>io.github.johaosalazarcuyos</groupId>
 	<artifactId>shopflow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shopflow</name>
